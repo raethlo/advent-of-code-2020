@@ -63,6 +63,11 @@ defmodule AdventOfCode.Day03 do
     count_obstacles({width, map}, "#", 0, 0, 3, 1)
   end
 
-  def part2(args) do
+  def part2(input) do
+    {width, map} = parse_lines(input)
+
+    steps = [{1,1}, {3,1}, {5,1}, {7,1}, {1, 2}]
+
+    steps |> Enum.reduce(1, fn {x, y}, acc -> acc * count_obstacles({width, map}, "#", 0, 0, x, y) end)
   end
 end
