@@ -53,13 +53,10 @@ defmodule AdventOfCode.Day04 do
       "pid",
     ]
 
-    required |> Enum.all?(fn x -> pass |> Map.has_key?(x) and passport_part_valid?(x, Map.get(pass, x)) end)
-  end
+    # require IEx; IEx.pry()
 
-  # hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
-  # ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
-  # pid (Passport ID) - a nine-digit number, including leading zeroes.
-  # cid (Country ID) - ignored, missing or not
+    Enum.all?(required, fn key -> pass |> Map.has_key?(key) end) and Enum.all?(required, fn key -> passport_part_valid?(key, Map.get(pass, key)) end)
+  end
 
   defp number_between?(value, lower_bound, upper_bound) do
     case Integer.parse(value) do
@@ -76,13 +73,13 @@ defmodule AdventOfCode.Day04 do
 
   def passport_part_valid?("iyr", value) do
     # iyr (Issue Year) - four digits; at least 2010 and at most 2020.
-    number_between?(value, 1920, 2020)
+    number_between?(value, 2010, 2020)
   end
 
 
   def passport_part_valid?("eyr", value) do
     # eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
-    number_between?(value, 1920, 2020)
+    number_between?(value, 2020, 2030)
   end
 
 
@@ -99,11 +96,31 @@ defmodule AdventOfCode.Day04 do
     end
   end
 
+  def passport_part_valid?("hcl", value) do
+    # hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
+    String.match?(value, ~r/^#[0-9a-f]{6}$/)
+  end
+
+  def passport_part_valid?("ecl", value) do
+    # ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
+    String.match?(value, ~r/(amb)|(blu)|(brn)|(gry)|(grn)|(hzl)|(oth)/)
+  end
+
+  def passport_part_valid?("pid", value) do
+    # pid (Passport ID) - a nine-digit number, including leading zeroes.
+    String.match?(value, ~r/^[0-9]{9}$/)
+  end
+
+  def passport_part_valid?(_, _) do
+    false
+  end
+
   def part1(input) do
     parse_passport_input(input) |> Enum.count(&passport_valid?/1)
   end
 
   def part2(input) do
-    parse_passport_input(input) |> Enum.count(&passport_valid_part2?/1)
+    pwds = parse_passport_input(input)
+    pwds |> Enum.count(&passport_valid_part2?/1)
   end
 end

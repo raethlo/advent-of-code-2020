@@ -19,12 +19,13 @@ defmodule AdventOfCode.Day04Test do
     assert not passport_part_valid?("hgt", "190")
   end
 
-  @tag :wip
+
   test "validate hair color" do
     assert passport_part_valid?("hcl", "#123abc")
     assert not passport_part_valid?("hcl", "#123abz")
     assert not passport_part_valid?("hcl", "123abc")
   end
+
 
   test "validate eye color" do
     assert passport_part_valid?("ecl", "brn")
