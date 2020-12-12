@@ -15,3 +15,4 @@ defmodule Mix.Tasks.D11.P1 do
         |> IO.inspect(label: "Part 1 Results")
   end
 end
+  
