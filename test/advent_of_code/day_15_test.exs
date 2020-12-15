@@ -9,12 +9,16 @@ defmodule AdventOfCode.Day15Test do
     assert init_memory(init) == %{0 => [1], 3 => [2], 6 => [3]}
   end
 
-  @tag :skip
   test "part1 basic" do
-    input = nil
-    result = part1(input)
+    init = [0,3,6]
+    memory = init_memory(init)
 
-    assert result
+    assert cycle(6, 3, memory, 10) == 0
+  end
+
+  test "part 1 more complex" do
+    assert cycle(2, 3, init_memory([1,3,2])) == 1
+    assert cycle(3, 3, init_memory([2,1,3])) == 10
   end
 
   @tag :skip

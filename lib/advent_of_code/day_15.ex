@@ -18,13 +18,13 @@ defmodule AdventOfCode.Day15 do
     end
   end
 
-  def cycle(last_number, turn, memory)
-  def cycle(last_number, 2020, _), do: last_number
-  def cycle(last_number, last_turn, memory) do
+  def cycle(last_number, turn, memory, stop_turn \\ 2020)
+  def cycle(last_number, turn, _, turn), do: last_number
+  def cycle(last_number, last_turn, memory, stop_turn) do
     new_number = handle_turn(last_number, last_turn, memory)
     new_turn = last_turn + 1
 
-    cycle(new_number, new_turn, add_to_memory(memory, new_number, new_turn))
+    cycle(new_number, new_turn, add_to_memory(memory, new_number, new_turn), stop_turn)
   end
 
   def init_memory(init_sequence) do
