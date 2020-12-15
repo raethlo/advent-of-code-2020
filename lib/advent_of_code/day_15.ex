@@ -32,12 +32,16 @@ defmodule AdventOfCode.Day15 do
   end
 
   def part1(args) do
-    input = [19,0,5,1,10,13]
+    input = args || [19,0,5,1,10,13]
 
     memory = init_memory(input)
-    require IEx;IEx.pry
+    cycle(List.last(input), length(input), memory)
   end
 
   def part2(args) do
+    input = args || [19,0,5,1,10,13]
+
+    memory = init_memory(input)
+    cycle(List.last(input), length(input), memory, 30000000)
   end
 end
