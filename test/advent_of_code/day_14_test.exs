@@ -30,14 +30,37 @@ defmodule AdventOfCode.Day14Test do
   test "expand floating bits" do
     mask = "X0X1"
 
-    assert MapSet.new(expand_floating_bits([mask])) == MapSet.new(["1011","0001","1001","0011"])
+    assert MapSet.new(expand_floating_bits([mask])) ==
+             MapSet.new(["1011", "0001", "1001", "0011"])
   end
 
-  @tag :skip
+  test "expand floating bits 2" do
+    actual = expand_floating_bits(["000000000000000000000000000000X1001X"]) |> Enum.map(& apply_mask_2(42, &1))
+
+    expected = [
+      "000000000000000000000000000000011010",
+      "000000000000000000000000000000011011",
+      "000000000000000000000000000000111010",
+      "000000000000000000000000000000111011"
+    ] |> Enum.map(& (String.to_integer(&1,2)))
+    require IEx;IEx.pry
+
+    assert MapSet.new(actual) ==
+             MapSet.new(expected)
+  end
+
   test "part2" do
-    input = nil
+    input =
+      """
+      mask = 000000000000000000000000000000X1001X
+      mem[42] = 100
+      mask = 00000000000000000000000000000000X0XX
+      mem[26] = 1
+      """
+      |> String.trim_trailing()
+
     result = part2(input)
 
-    assert result
+    assert result == 208
   end
 end
