@@ -3,8 +3,14 @@ defmodule AdventOfCode.Day15Test do
 
   import AdventOfCode.Day15
 
+  test "init memory" do
+    init = [0,3,6]
+
+    assert init_memory(init) == %{0 => [1], 3 => [2], 6 => [3]}
+  end
+
   @tag :skip
-  test "part1" do
+  test "part1 basic" do
     input = nil
     result = part1(input)
 
